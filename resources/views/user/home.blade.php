@@ -19,6 +19,17 @@
   <link rel="stylesheet" href="../assets/vendor/animate/animate.css">
 
   <link rel="stylesheet" href="../assets/css/theme.css">
+
+<style type="text/css">
+  button.btn.btn-primary.mt-3.wow.zoomIn {
+    background: #00D9A5 !IMPORTANT;
+}
+
+
+
+</style>
+
+
 </head>
 <body>
 
@@ -31,9 +42,9 @@
         <div class="row">
           <div class="col-sm-8 text-sm">
             <div class="site-info">
-              <a href="#"><span class="mai-call text-primary"></span> +00 123 4455 6666</a>
+              <a href="#"><span class="mai-call text-primary"></span></a>
               <span class="divider">|</span>
-              <a href="#"><span class="mai-mail text-primary"></span> mail@example.com</a>
+              <a href="#"><span class="mai-mail text-primary"></span></a>
             </div>
           </div>
           <div class="col-sm-4 text-right text-sm">
@@ -86,6 +97,10 @@
             @if(Route::has('login'))
             @auth
 
+             <li class="nav-item">
+              <a class="nav-link" style="background-color:greenyellow; color:white;" href="{{url('myappointment')}}">My appointment</a>
+            </li>
+
             <x-app-layout>
            </x-app-layout>
 
@@ -109,6 +124,24 @@
       </div> <!-- .container -->
     </nav>
   </header>
+
+  @if(session()->has('message'))
+
+         <div class="alert alert-success">
+
+          <button type="button"class="close"data-dismiss="alert">
+
+            x
+
+          </button>
+
+
+          {{session()->get('message')}}
+           
+
+         </div>
+
+         @endif
 
   <div class="page-hero bg-image overlay-dark" style="background-image: url(../assets/img/bg_image_1.jpg);">
     <div class="hero-section">
@@ -178,7 +211,6 @@
 
     @include('user.appointment')
 
-       
   <footer class="page-footer">
     <div class="container">
       <div class="row px-md-3">
