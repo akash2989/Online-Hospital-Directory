@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Doctor;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Appointment;
 
 class AdminController extends Controller
@@ -11,7 +12,24 @@ class AdminController extends Controller
     
     public function addview()
     {
-        return view('admin.add_doctor');
+        if(Auth::id())
+        {
+            if(Auth::user()->usertype==1)
+            {
+               return view('admin.add_doctor'); 
+            }
+
+            else
+            {
+                return redirect()->back();
+            }
+
+        }
+        else
+        {
+            return redirect('login');
+        }
+        
     }
 
     public function upload(Request $request)
@@ -66,4 +84,32 @@ class AdminController extends Controller
         $data->delete();
         return redirect()->back();
     }
+
+    public function updatedoctor($id)
+    {
+        $data=doctor::find($id);
+        return view('admin.update_doctor',compact('data'));
+    }
+    public function editdoctor(Request $request,$id)
+    {
+        $doctor= doctor::find($id);
+        $doctor->name=$request->name;
+        $doctor->phone=$request->phone;
+        $doctor->Speciality=$request->speciality;
+        $doctor->room=$request->room;
+        $image=$request->file;
+
+        if($image)
+        {
+        $imagename=time().'.'.$image->getClientoriginalExtension();
+
+        $request->file->move('doctorimage',$imagename);
+        $doctor->image=$imagename;
+    }
+
+        $doctor->save();
+        return redirect()->back()->with('message','Doctor Details Updated Successfully');
+
+    }
+
 }

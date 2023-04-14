@@ -46,9 +46,9 @@
             <td>{{$appoint->message}}</td>
             <td>{{$appoint->status}}</td>
 
-            <td><a class="btn btn-success" href="{{url('approved',$appoint->id)}}">Approved</a>
+            <td><a class="btn btn-success" href="{{url('approved',$appoint->id)}}">Approve</a>
             </td>
-            <td><a class="btn btn-danger" href="{{url('canceled',$appoint->id)}}">Canceled</a>
+            <td><a class="btn btn-danger" href="{{url('canceled',$appoint->id)}}">Cancel</a>
             </td>
 
           </tr>
